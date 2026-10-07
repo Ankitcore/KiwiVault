@@ -123,7 +123,11 @@ export function Navbar() {
                   value={st.id}
                   className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
                 >
-                  {st.name} (Sem {st.semester} {st.branch.includes("ECE") ? "ECE" : "CSE"})
+                  {st.name} (Sem {st.semester} {
+                    st.branch.includes("Electrical") ? "EEE" :
+                    st.branch.includes("Artifical") ? "AI/ML" :
+                    st.branch.includes("ECE") || st.branch.includes("Electronics") ? "ECE" : "CSE"
+                  })
                 </option>
               ))}
             </select>
