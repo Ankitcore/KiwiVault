@@ -126,7 +126,7 @@ export default function LoginPage() {
                   student@rvscet.ac.in
                 </p>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                  Shivam Kumar • B.Tech CSE (3rd Sem) • Academic Wallet, Achievements &amp; ZK Prover
+                  Shivam Soni • B.Tech CSE (3rd Sem) • Academic Wallet, Achievements &amp; ZK Prover
                 </p>
               </button>
 

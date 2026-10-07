@@ -157,7 +157,7 @@ export function VaultProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<"light" | "dark">("light");
   const [user, setUser] = useState<AuthenticatedUser>({
     email: "student@rvscet.ac.in",
-    name: "Shivam Kumar",
+    name: "Shivam Soni",
     role: "student",
     studentId: "student-shivam",
   });
@@ -320,7 +320,7 @@ export function VaultProvider({ children }: { children: React.ReactNode }) {
   const logout = useCallback(() => {
     const defaultUser: AuthenticatedUser = {
       email: "student@rvscet.ac.in",
-      name: "Shivam Kumar",
+      name: "Shivam Soni",
       role: "student",
       studentId: "student-shivam",
     };
