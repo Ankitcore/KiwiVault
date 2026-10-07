@@ -1,0 +1,9 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "echo 'Backend server not yet implemented. Use Next.js for now.' && exit 1"
+  },
+  "dependencies": {}
+}
