@@ -137,7 +137,7 @@ export default function HomePage() {
             Mathematical Certainty
           </h3>
           <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Prove specific claims (e.g., "Age ≥ 18") mathematically. Verifiers get 100% cryptographic assurance without ever seeing your underlying documents.
+            Prove specific claims (e.g., &quot;Age ≥ 18&quot;) mathematically. Verifiers get 100% cryptographic assurance without ever seeing your underlying documents.
           </p>
           <ul className="space-y-3">
             {[
