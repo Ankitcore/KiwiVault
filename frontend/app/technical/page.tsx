@@ -10,7 +10,7 @@ export default function TechnicalPage() {
           Problem 23 — Deliverables
         </h1>
         <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
-          Technical documentation and checklist for Kiwi Vault's Privacy-Preserving Zero-Knowledge Digital Identity system.
+          Technical documentation and checklist for Kiwi Vault&apos;s Privacy-Preserving Zero-Knowledge Digital Identity system.
         </p>
       </div>
 
