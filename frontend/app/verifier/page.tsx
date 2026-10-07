@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { QRCodeSVG } from "qrcode.react";
+import { Scanner } from "@yudiel/react-qr-scanner";
 import {
   CheckCircle2,
   ChevronDown,
@@ -61,8 +62,8 @@ export default function VerifierPage() {
     activeStudent.id
   );
   const [selectedOption, setSelectedOption] = useState<VerifyOption>("age");
-  const [requestId, setRequestId] = useState<string>("VR-KV-DEMO-017");
-  const [targetCredId, setTargetCredId] = useState<string>("KV-RVSCET-DEMO-017");
+  const [requestId, setRequestId] = useState<string>("");
+  const [targetCredId, setTargetCredId] = useState<string>("");
   const [claimText, setClaimText] = useState<string>("Age ≥ 18");
   const [ageThreshold, setAgeThreshold] = useState<number>(18);
   const [activeScenarioBadge, setActiveScenarioBadge] = useState<
@@ -72,12 +73,19 @@ export default function VerifierPage() {
   const [waitingForHolder, setWaitingForHolder] = useState<boolean>(false);
   const [isVerifyingInProgress, setIsVerifyingInProgress] =
     useState<boolean>(false);
+  const [isScannerOpen, setIsScannerOpen] = useState<boolean>(false);
   const [stepProgress, setStepProgress] = useState<number>(0);
   const [lockState, setLockState] = useState<LockState>("idle");
   const [proofResult, setProofResult] = useState<ZKProofPackage | null>(null);
   const [showPrivacyDetails, setShowPrivacyDetails] = useState<boolean>(true);
   const [showProofDetails, setShowProofDetails] = useState<boolean>(false);
   const [failureMessage, setFailureMessage] = useState<string | null>(null);
+
+  // Initialize with unique IDs on mount
+  React.useEffect(() => {
+    setRequestId(generateCredentialId("VR-KV", new Date().getFullYear()));
+    setTargetCredId("KV-JUT-RVSCET-2026-EEE-327");
+  }, []);
 
   const targetStudent =
     students.find((s) => s.id === selectedStudentId) ||
@@ -108,7 +116,7 @@ export default function VerifierPage() {
     const createdReq = createVerificationRequest({
       targetHolderId: holder.id,
       studentName: holder.name,
-      customRequestId: params.customReqId,
+      customRequestId: params.customReqId || generateCredentialId("VR-KV", new Date().getFullYear()),
       claimType: params.option,
       claimLabel: params.claim,
       credentialId: params.credId,
@@ -233,8 +241,8 @@ export default function VerifierPage() {
         students.find((s) => s.id === "student-aarav-under18") || students[0];
       setSelectedStudentId(under18Student.id);
       setActiveStudentById(under18Student.id);
-      const credId = "KV-RVSCET-DEMO-017";
-      const reqIdToUse = "VR-KV-DEMO-017";
+      const credId = "KV-JUT-RVSCET-2026-EEE-327";
+      const reqIdToUse = generateCredentialId("VR-KV", 2026);
       setTargetCredId(credId);
       setRequestId(reqIdToUse);
       runVerificationForTarget({
@@ -262,7 +270,7 @@ export default function VerifierPage() {
       setRequestId(generateCredentialId("VR-KV", 2026));
       setTargetCredId(
         selectedStudentId === "student-aarav-under18"
-          ? "KV-RVSCET-DEMO-017"
+          ? "KV-JUT-RVSCET-2026-EEE-327"
           : "KV-RVSCET-2028-000124"
       );
       setClaimText(
@@ -272,8 +280,8 @@ export default function VerifierPage() {
       );
     } else if (opt === "age") {
       const isAarav = selectedStudentId === "student-aarav-under18";
-      setRequestId(isAarav ? "VR-KV-DEMO-017" : generateCredentialId("VR-KV", 2026));
-      setTargetCredId(isAarav ? "KV-RVSCET-DEMO-017" : "KV-ID-2024-000103");
+      setRequestId(isAarav ? generateCredentialId("VR-KV", 2026) : generateCredentialId("VR-KV", 2026));
+      setTargetCredId(isAarav ? "KV-JUT-RVSCET-2026-EEE-327" : "KV-ID-2024-000103");
       setClaimText(`Age ≥ ${ageThreshold}`);
     } else if (opt === "achievement") {
       setRequestId(generateCredentialId("VR-KV", 2026));
@@ -287,7 +295,7 @@ export default function VerifierPage() {
       setRequestId(generateCredentialId("VR-KV", 2026));
       setTargetCredId(
         selectedStudentId === "student-aarav-under18"
-          ? "KV-RVSCET-DEMO-017"
+          ? "KV-JUT-RVSCET-2026-EEE-327"
           : "KV-RVSCET-2024-000101"
       );
       setClaimText("Active B.Tech CSE Student at RVSCET Jamshedpur");
@@ -309,8 +317,8 @@ export default function VerifierPage() {
       setSelectedOption("age");
       setAgeThreshold(18);
       setClaimText("Age ≥ 18");
-      setTargetCredId("KV-RVSCET-DEMO-017");
-      setRequestId("VR-KV-DEMO-017");
+      setTargetCredId("KV-JUT-RVSCET-2026-EEE-327");
+      setRequestId(generateCredentialId("VR-KV", 2026));
     } else {
       setActiveScenarioBadge("adult_pass");
       if (selectedOption === "age") {
@@ -330,7 +338,7 @@ export default function VerifierPage() {
       minAge: ageThreshold,
       customReqId:
         targetStudent.id === "student-aarav-under18" && selectedOption === "age"
-          ? "VR-KV-DEMO-017"
+          ? generateCredentialId("VR-KV", 2026)
           : undefined,
     });
   };
@@ -565,14 +573,86 @@ export default function VerifierPage() {
             </div>
 
             <div>
-              <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">
-                Target Credential ID
+              <label className="font-bold text-slate-700 dark:text-slate-300 flex items-center justify-between mb-1">
+                <span>Target Credential ID</span>
+                <button
+                  type="button"
+                  onClick={() => setIsScannerOpen(!isScannerOpen)}
+                  className="text-[10px] font-bold text-kiwi-600 dark:text-kiwi-400 flex items-center gap-1 hover:underline"
+                >
+                  <QrCode size={12} /> {isScannerOpen ? "Close Scanner" : "Scan QR"}
+                </button>
               </label>
+              
+              {isScannerOpen && (
+                <div className="mb-3 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 aspect-video relative bg-black">
+                  <Scanner 
+                    onScan={(result) => {
+                      if (result && result.length > 0) {
+                        let scannedId = result[0].rawValue;
+                        if (scannedId.startsWith("KIWI_VAULT_VERIFY:")) {
+                          scannedId = scannedId.replace("KIWI_VAULT_VERIFY:", "");
+                        } else {
+                          try {
+                            const parsed = JSON.parse(scannedId);
+                            if (parsed.credentialId) {
+                              scannedId = parsed.credentialId;
+                            }
+                          } catch {}
+                        }
+                        
+                        const credRecord = findCredentialById(scannedId);
+                        const holderId = credRecord.holderId !== "not_found" ? credRecord.holderId : targetStudent.id;
+                        
+                        // Automatically map the scanned document to the correct Verifier Claim Type
+                        let newOption: VerifyOption = selectedOption;
+                        let newClaim = claimText;
+                        
+                        if (credRecord.kind === "identity") {
+                          newOption = "age";
+                          newClaim = `Age ≥ ${ageThreshold}`;
+                        } else if (credRecord.kind === "academic") {
+                          newOption = "degree";
+                          newClaim = `Verified Degree/Status from ${credRecord.issuer}`;
+                        } else if (credRecord.kind === "achievement") {
+                          newOption = "achievement";
+                          newClaim = credRecord.title;
+                        } else if (credRecord.kind === "certification") {
+                          newOption = "certificate";
+                          newClaim = credRecord.title;
+                        }
+                        
+                        // Sync UI dropdowns and textboxes instantly
+                        setTargetCredId(scannedId);
+                        setSelectedStudentId(holderId);
+                        setSelectedOption(newOption);
+                        setClaimText(newClaim);
+                        setIsScannerOpen(false);
+
+                        // Trigger the Zero-Knowledge verification sequence automatically
+                        setTimeout(() => {
+                          runVerificationForTarget({
+                            studentId: holderId,
+                            option: newOption,
+                            credId: scannedId,
+                            claim: newClaim,
+                            minAge: ageThreshold
+                          });
+                        }, 500);
+                      }
+                    }}
+                    components={{ audio: false, finder: false }}
+                  />
+                  <div className="absolute inset-0 border-2 border-kiwi-500/50 rounded-xl pointer-events-none z-10" />
+                </div>
+              )}
+
               <input
                 type="text"
                 value={targetCredId}
                 onChange={(e) => setTargetCredId(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl font-mono font-bold bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700"
+                placeholder="Scan or enter credential ID..."
               />
             </div>
 

@@ -1,0 +1,9 @@
+node_modules/
+artifacts/
+cache/
+*.ptau
+*.zkey
+*.r1cs
+*.sym
+*.exe
+*_js/

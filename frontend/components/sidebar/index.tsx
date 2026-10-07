@@ -42,6 +42,7 @@ export function Sidebar() {
     { href: "/verifier", label: t("navVerifier"), icon: Award },
     { href: "/admin", label: t("navAdmin"), icon: Settings },
     { href: "/demo", label: "How it works", icon: Presentation },
+    { href: "/technical", label: "Deliverables", icon: FileBadge },
     { href: "/about", label: t("navAbout"), icon: Info },
   ];
 
@@ -177,7 +178,8 @@ export function Sidebar() {
           { href: "/achievements", label: "Awards", icon: Trophy },
           { href: "/issuer", label: "Issuer", icon: Building2 },
           { href: "/verifier", label: "Verify", icon: ShieldCheck },
-          { href: "/demo", label: "How it works", icon: Compass },
+          { href: "/demo", label: "How", icon: Compass },
+          { href: "/technical", label: "Docs", icon: FileBadge },
         ].map((item) => {
           const Icon = item.icon;
           const active = pathname === item.href;

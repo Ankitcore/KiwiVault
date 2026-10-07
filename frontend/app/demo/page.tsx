@@ -16,6 +16,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useVault } from "@/lib/auth/vault-context";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   generateDegreeZKProof,
   verifyZKProofPackage,
@@ -171,12 +172,12 @@ export default function JudgeDemoPage() {
               <button
                 key={item.step}
                 onClick={() => executeStepAction(item.step)}
-                className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-200 flex items-center gap-3.5 ${
+                className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 transform active:scale-95 flex items-center gap-3.5 ${
                   isActive
-                    ? "bg-[#80C332] text-white shadow-md shadow-[#80C332]/25"
+                    ? "bg-[#80C332] text-white shadow-md shadow-[#80C332]/25 scale-[1.02]"
                     : isCompleted
-                    ? "bg-gray-100/80 dark:bg-slate-800/60 text-neutral-600 dark:text-slate-300 hover:bg-gray-100"
-                    : "bg-transparent text-neutral-400 dark:text-slate-500 hover:bg-gray-50 dark:hover:bg-slate-900 hover:text-neutral-600"
+                    ? "bg-gray-100/80 dark:bg-slate-800/60 text-neutral-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800 hover:scale-[1.01]"
+                    : "bg-transparent text-neutral-400 dark:text-slate-500 hover:bg-gray-50 dark:hover:bg-slate-900/60 hover:text-neutral-600 hover:scale-[1.01]"
                 }`}
               >
                 <StepIcon
@@ -220,7 +221,11 @@ export default function JudgeDemoPage() {
 
         {/* RIGHT MAIN STAGE / CONTENT AREA */}
         <div className="md:col-span-8">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-gray-100 dark:border-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.05)] flex flex-col justify-between min-h-[430px]">
+          <div className="bg-white dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-kiwi-100 dark:border-slate-800 shadow-[0_20px_60px_rgb(0,0,0,0.08)] dark:shadow-kiwi-900/10 flex flex-col justify-between min-h-[480px] overflow-hidden relative">
+            
+            {/* Subtle background glow */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-kiwi-400/10 dark:bg-kiwi-600/10 rounded-full blur-[80px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-sky-400/10 dark:bg-sky-600/10 rounded-full blur-[80px] pointer-events-none" />
             {/* Top Stage Header + Dynamic Content */}
             <div className="p-6 sm:p-8 flex-1 flex flex-col">
               <div className="mb-6">
@@ -232,9 +237,17 @@ export default function JudgeDemoPage() {
                 </p>
               </div>
 
+              <AnimatePresence mode="wait">
               {/* STEP 1: ISSUING THE CREDENTIAL */}
               {currentStep === 1 && (
-                <div className="bg-gray-50/40 dark:bg-slate-800/40 rounded-xl border border-gray-100 dark:border-slate-800 p-6 space-y-4">
+                <motion.div
+                  key="step-1"
+                  initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -15, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-gray-50/40 dark:bg-slate-800/40 rounded-xl border border-gray-100 dark:border-slate-800 p-6 space-y-4"
+                >
                   <div className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-slate-800 text-xs sm:text-sm">
                     <span className="text-neutral-500 dark:text-slate-400">
                       Student:
@@ -285,12 +298,19 @@ export default function JudgeDemoPage() {
                       <div className="h-full w-full rounded-full bg-[#80C332] transition-all duration-500" />
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
 
               {/* STEP 2: STUDENT'S DIGITAL VAULT */}
               {currentStep === 2 && (
-                <div className="flex-1 flex items-center justify-center py-6">
+                <motion.div
+                  key="step-2"
+                  initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -15, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.3 }}
+                  className="flex-1 flex items-center justify-center py-6"
+                >
                   <div className="relative w-full max-w-[290px]">
                     {/* Subtle watermark Lock icon behind top-left */}
                     <Lock
@@ -326,12 +346,19 @@ export default function JudgeDemoPage() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
 
               {/* STEP 3: VERIFIER REQUESTS PROOF */}
               {currentStep === 3 && (
-                <div className="bg-gray-50/40 dark:bg-slate-800/40 rounded-xl border border-gray-100 dark:border-slate-800 p-6 space-y-4">
+                <motion.div
+                  key="step-3"
+                  initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -15, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-gray-50/40 dark:bg-slate-800/40 rounded-xl border border-gray-100 dark:border-slate-800 p-6 space-y-4"
+                >
                   <div className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-slate-800 text-xs sm:text-sm">
                     <span className="text-neutral-500 dark:text-slate-400">
                       Request ID:
@@ -367,12 +394,19 @@ export default function JudgeDemoPage() {
                       Zero-Knowledge Selective Proof
                     </span>
                   </div>
-                </div>
+                </motion.div>
               )}
 
               {/* STEP 4: ZERO-KNOWLEDGE PROOF GENERATED */}
               {currentStep === 4 && (
-                <div className="bg-gray-50/40 dark:bg-slate-800/40 rounded-xl border border-gray-100 dark:border-slate-800 p-6 space-y-4">
+                <motion.div
+                  key="step-4"
+                  initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -15, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-gray-50/40 dark:bg-slate-800/40 rounded-xl border border-gray-100 dark:border-slate-800 p-6 space-y-4"
+                >
                   <div className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-slate-800 text-xs sm:text-sm">
                     <span className="text-neutral-500 dark:text-slate-400">
                       Circuit:
@@ -408,12 +442,19 @@ export default function JudgeDemoPage() {
                       <div className="h-full w-full rounded-full bg-[#80C332] transition-all duration-500" />
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
 
               {/* STEP 5: VERIFICATION SUCCESS */}
               {currentStep === 5 && (
-                <div className="bg-white dark:bg-slate-800/40 rounded-xl border border-gray-100 dark:border-slate-800 p-6 space-y-5">
+                <motion.div
+                  key="step-5"
+                  initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -15, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-white dark:bg-slate-800/40 rounded-xl border border-gray-100 dark:border-slate-800 p-6 space-y-5"
+                >
                   <div className="flex items-center justify-between pb-4 border-b border-gray-100 dark:border-slate-800">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-[#F6FBF2] dark:bg-kiwi-950 text-[#80C332] flex items-center justify-center border border-kiwi-200 dark:border-kiwi-800">
@@ -464,12 +505,19 @@ export default function JudgeDemoPage() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
 
               {/* STEP 6: INSTITUTION REVOKES */}
               {currentStep === 6 && (
-                <div className="bg-gray-50/40 dark:bg-slate-800/40 rounded-xl border border-gray-100 dark:border-slate-800 p-6 space-y-4">
+                <motion.div
+                  key="step-6"
+                  initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -15, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-gray-50/40 dark:bg-slate-800/40 rounded-xl border border-gray-100 dark:border-slate-800 p-6 space-y-4"
+                >
                   <div className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-slate-800 text-xs sm:text-sm">
                     <span className="text-neutral-500 dark:text-slate-400">
                       Credential ID:
@@ -505,12 +553,19 @@ export default function JudgeDemoPage() {
                       Revoked
                     </span>
                   </div>
-                </div>
+                </motion.div>
               )}
 
               {/* STEP 7: VERIFICATION FAILS */}
               {currentStep === 7 && (
-                <div className="flex-1 flex items-center justify-center py-4">
+                <motion.div
+                  key="step-7"
+                  initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -15, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.3 }}
+                  className="flex-1 flex items-center justify-center py-4"
+                >
                   <div className="w-full max-w-md bg-white dark:bg-slate-800 rounded-2xl border border-rose-100 dark:border-rose-900/60 shadow-[0_12px_32px_rgb(0,0,0,0.05)] p-6 text-center space-y-3">
                     <div className="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center mx-auto border border-rose-200/70 dark:border-rose-800">
                       <ShieldAlert size={24} />
@@ -531,8 +586,9 @@ export default function JudgeDemoPage() {
                       </span>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               )}
+            </AnimatePresence>
             </div>
 
             {/* 5. NAVIGATION & ACTION FOOTER */}

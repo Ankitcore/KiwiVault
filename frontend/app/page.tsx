@@ -95,6 +95,13 @@ export default function HomePage() {
           >
             <ShieldCheck size={16} /> Verifier Gateway <ChevronRight size={14} />
           </button>
+          <div className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 my-auto hidden sm:block"></div>
+          <Link
+            href="/technical"
+            className="hover:text-kiwi-600 dark:hover:text-kiwi-400 transition-colors flex items-center gap-1.5"
+          >
+            <FileCheck2 size={16} /> Technical Docs <ChevronRight size={14} />
+          </Link>
         </div>
       </section>
 
