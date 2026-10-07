@@ -270,17 +270,17 @@ export default function VerifierPage() {
       setRequestId(generateCredentialId("VR-KV", 2026));
       setTargetCredId(
         selectedStudentId === "student-aarav-under18"
-          ? "KV-JUT-RVSCET-2026-EEE-327"
+          ? "KV-RVSCET-2026-000171"
           : "KV-RVSCET-2028-000124"
       );
       setClaimText(
         selectedStudentId === "student-aarav-under18"
-          ? "B.Tech Electrical and Electronic Engineering Degree"
+          ? "Semester 1 Examination Passed"
           : "B.Tech Computer Science & Engineering Degree"
       );
     } else if (opt === "age") {
       const isAarav = selectedStudentId === "student-aarav-under18";
-      setRequestId(isAarav ? generateCredentialId("VR-KV", 2026) : generateCredentialId("VR-KV", 2026));
+      setRequestId(generateCredentialId("VR-KV", 2026));
       setTargetCredId(isAarav ? "KV-JUT-RVSCET-2026-EEE-327" : "KV-ID-2024-000103");
       setClaimText(`Age ≥ ${ageThreshold}`);
     } else if (opt === "achievement") {
@@ -312,20 +312,25 @@ export default function VerifierPage() {
     setProofResult(null);
     setFailureMessage(null);
 
-    if (newStudentId === "student-aarav-under18") {
-      setActiveScenarioBadge("under18_fail");
-      setSelectedOption("age");
-      setAgeThreshold(18);
-      setClaimText("Age ≥ 18");
-      setTargetCredId("KV-JUT-RVSCET-2026-EEE-327");
-      setRequestId(generateCredentialId("VR-KV", 2026));
-    } else {
-      setActiveScenarioBadge("adult_pass");
-      if (selectedOption === "age") {
-        setTargetCredId("KV-ID-2024-000103");
-        setClaimText(`Age ≥ ${ageThreshold}`);
-        setRequestId(generateCredentialId("VR-KV", 2026));
-      }
+    const isAarav = newStudentId === "student-aarav-under18";
+    setActiveScenarioBadge(isAarav ? "under18_fail" : "adult_pass");
+    setRequestId(generateCredentialId("VR-KV", 2026));
+
+    if (selectedOption === "age") {
+      setTargetCredId(isAarav ? "KV-JUT-RVSCET-2026-EEE-327" : "KV-ID-2024-000103");
+      setClaimText(`Age ≥ ${ageThreshold}`);
+    } else if (selectedOption === "degree") {
+      setTargetCredId(isAarav ? "KV-RVSCET-2026-000171" : "KV-RVSCET-2028-000124");
+      setClaimText(isAarav ? "Semester 1 Examination Passed" : "B.Tech Computer Science & Engineering Degree");
+    } else if (selectedOption === "achievement") {
+      setTargetCredId(isAarav ? "KV-ACH-2026-0042" : "KV-ACH-2026-0042");
+      setClaimText("Smart India Hackathon 2026 — Winner");
+    } else if (selectedOption === "certificate") {
+      setTargetCredId(isAarav ? "KV-CERT-2026-000181" : "KV-CERT-2026-0109");
+      setClaimText(isAarav ? "Technical Certification" : "Helix Technical Workshop");
+    } else if (selectedOption === "student_status") {
+      setTargetCredId(isAarav ? "KV-JUT-RVSCET-2026-EEE-327" : "KV-RVSCET-2024-000101");
+      setClaimText("Active Student at RVSCET Jamshedpur");
     }
   };
 
