@@ -264,7 +264,11 @@ export default function VerifierPage() {
           ? "KV-RVSCET-DEMO-017"
           : "KV-RVSCET-2028-000124"
       );
-      setClaimText("B.Tech Computer Science & Engineering Degree");
+      setClaimText(
+        selectedStudentId === "student-aarav-under18"
+          ? "B.Tech Electrical and Electronic Engineering Degree"
+          : "B.Tech Computer Science & Engineering Degree"
+      );
     } else if (opt === "age") {
       const isAarav = selectedStudentId === "student-aarav-under18";
       setRequestId(isAarav ? "VR-KV-DEMO-017" : generateCredentialId("VR-KV", 2026));

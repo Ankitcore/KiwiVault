@@ -129,11 +129,11 @@ export default function JudgeDemoPage() {
         privateStudentId: activeStudent.registrationNumber,
         privateHolderSecret: activeStudent.privateHolderSecret,
         privateCredentialSalt: demoCredId,
-        degreeProgram: "B.Tech",
-        branch: "Computer Science & Engineering",
+        degreeProgram: activeStudent.program,
+        branch: activeStudent.branch,
         issuer: "RVS College of Engineering & Technology, Jamshedpur",
         credentialId: demoCredId,
-        claimLabel: "B.Tech CSE Degree",
+        claimLabel: `${activeStudent.program} ${activeStudent.branch} Degree`,
       });
       verifyZKProofPackage(pkg);
       setZkProof(pkg);
@@ -313,7 +313,7 @@ export default function JudgeDemoPage() {
 
                       <div className="p-5 space-y-1.5">
                         <p className="text-sm font-bold text-neutral-900 dark:text-white">
-                          B.Tech Computer Science
+                          {activeStudent.program} {activeStudent.branch}
                         </p>
                         <p className="text-xs text-neutral-500 dark:text-slate-400">
                           RVSCET, Jamshedpur
