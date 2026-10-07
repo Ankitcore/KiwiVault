@@ -55,7 +55,7 @@ export function AchievementCard({
             </div>
             <div>
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-700 dark:text-amber-400">
+                <span className="break-words whitespace-normal text-[10px] font-extrabold uppercase tracking-wider text-amber-700 dark:text-amber-400">
                   🏆 ACHIEVEMENT
                 </span>
                 <span

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { QRCodeSVG } from "qrcode.react";
 import {
   CheckCircle2,
@@ -724,9 +725,12 @@ export default function VerifierPage() {
                   item.step >= 4 &&
                   (lockState === "age_restricted" || lockState === "revoked");
                 return (
-                  <div
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: item.step * 0.1, duration: 0.3 }}
                     key={item.step}
-                    className={`p-3 rounded-2xl border text-xs transition flex flex-col justify-between ${
+                    className={`p-3 rounded-2xl border text-xs transition-colors flex flex-col justify-between ${
                       isFailStep
                         ? "bg-rose-50/90 dark:bg-rose-950/40 border-rose-300 dark:border-rose-800 text-rose-900 dark:text-rose-200"
                         : done
@@ -746,7 +750,7 @@ export default function VerifierPage() {
                         {item.subtitle}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>

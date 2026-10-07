@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckCircle2,
   Circle,
@@ -192,7 +193,7 @@ export default function WalletPage() {
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-1">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-kiwi-100 dark:bg-kiwi-950 text-kiwi-800 dark:text-kiwi-300 border border-kiwi-300 dark:border-kiwi-800">
+                <span className="inline-block text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-kiwi-100 dark:bg-kiwi-950 text-kiwi-800 dark:text-kiwi-300 border border-kiwi-300 dark:border-kiwi-800 whitespace-normal break-words leading-tight text-center">
                   {activeStudent.name} • {activeStudent.registrationNumber} • Sem {activeStudent.semester}
                 </span>
               </div>
@@ -218,16 +219,12 @@ export default function WalletPage() {
                   setShowPrivateIdentityData(false);
                   setActiveStudentById(e.target.value);
                 }}
-                className="px-3 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100"
+                className="px-3 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 w-full sm:w-auto max-w-full truncate"
               >
                 {students.map((st) => (
                   <option key={st.id} value={st.id}>
                     {st.name} ({st.registrationNumber}) — Sem {st.semester}
-                    {st.id === "student-aarav-under18"
-                      ? " • Under-18 Demo"
-                      : st.isGraduated
-                      ? " • Pass-out"
-                      : ""}
+                    {st.isGraduated ? " • Pass-out" : ""}
                   </option>
                 ))}
               </select>
@@ -243,12 +240,12 @@ export default function WalletPage() {
                 <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">
                   Identity Credential
                 </span>
-                <span className="font-extrabold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <span className="font-extrabold text-slate-900 dark:text-white flex flex-wrap items-center gap-1.5 min-w-0">
                   Student Identity{" "}
-                  <span className="font-mono text-[11px] text-kiwi-700 dark:text-kiwi-400">
-                    ({primaryIdentityCred?.credentialId || "KV-RVSCET-DEMO-017"})
+                  <span className="font-mono text-[11px] text-kiwi-700 dark:text-kiwi-400 break-words">
+                    ({primaryIdentityCred?.credentialId || "KV-JUT-RVSCET-2026-EEE-327"})
                   </span>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 shrink-0">
                     🟢 ACTIVE
                   </span>
                 </span>
@@ -461,8 +458,16 @@ export default function WalletPage() {
       </section>
 
       {/* TAB 1: ACADEMIC CREDENTIALS (Section 14, 15, 16) */}
+      <AnimatePresence mode="wait">
       {activeTab === "academic" && (
-        <div className="space-y-6">
+        <motion.div
+          key="academic"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -15 }}
+          transition={{ duration: 0.2 }}
+          className="space-y-6"
+        >
           {/* Semester-Aware Academic Progression Bar (Section 14) */}
           <div className="rounded-3xl p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
@@ -485,14 +490,19 @@ export default function WalletPage() {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5">
-              {semesterChecklist.map((item) => (
-                <button
+              {semesterChecklist.map((item, idx) => (
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: idx * 0.05, duration: 0.3 }}
+                  whileHover={item.record ? { scale: 1.05 } : {}}
+                  whileTap={item.record ? { scale: 0.95 } : {}}
                   key={item.semester}
                   onClick={() => {
                     if (item.record) setSelectedDetailCred(item.record);
                   }}
                   disabled={!item.record}
-                  className={`p-3 rounded-2xl border text-left transition ${
+                  className={`p-3 rounded-2xl border text-left transition-colors ${
                     item.state === "issued"
                       ? "bg-kiwi-50/70 dark:bg-kiwi-950/30 border-kiwi-300 dark:border-kiwi-800 hover:shadow-sm cursor-pointer"
                       : item.state === "current"
@@ -519,7 +529,7 @@ export default function WalletPage() {
                       ? "🔒 Current"
                       : "○ Not yet issued"}
                   </p>
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
@@ -559,12 +569,19 @@ export default function WalletPage() {
               />
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* TAB 2: IDENTITY (Section 17 & 23) */}
       {activeTab === "identity" && (
-        <div className="space-y-6">
+        <motion.div
+          key="identity"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -15 }}
+          transition={{ duration: 0.2 }}
+          className="space-y-6"
+        >
           {/* Demo Age Restriction Simulator Banner (Section 23) */}
           <div className="rounded-3xl p-5 bg-white dark:bg-slate-900 border border-kiwi-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1">
@@ -573,7 +590,7 @@ export default function WalletPage() {
               </span>
               <h3 className="text-sm font-bold text-slate-900 dark:text-white">
                 Age Verification Status:{" "}
-                <span className="font-mono text-kiwi-700 dark:text-kiwi-300">
+                <span className="font-mono text-kiwi-700 dark:text-kiwi-300 break-words whitespace-normal inline-block">
                   {showPrivateIdentityData
                     ? `Date of Birth: ${formattedHolderDob} • Eligibility: ${ageEligibility.eligibilityLabel}`
                     : "🔐 Private (Raw DOB hidden on main surface)"}
@@ -621,12 +638,19 @@ export default function WalletPage() {
               />
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* TAB 3: ACHIEVEMENTS */}
       {activeTab === "achievements" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <motion.div
+          key="achievements"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -15 }}
+          transition={{ duration: 0.2 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
           {myAchievements.map((ach) => (
             <AchievementCard
               key={ach.id}
@@ -643,12 +667,19 @@ export default function WalletPage() {
               onViewCertificate={(a) => setPreviewCertItem(a)}
             />
           ))}
-        </div>
+        </motion.div>
       )}
 
       {/* TAB 4: CERTIFICATIONS */}
       {activeTab === "certifications" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <motion.div
+          key="certifications"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -15 }}
+          transition={{ duration: 0.2 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
           {myCerts.map((cert) => (
             <CertificateCard
               key={cert.id}
@@ -665,12 +696,19 @@ export default function WalletPage() {
               onPreview={(c) => setPreviewCertItem(c)}
             />
           ))}
-        </div>
+        </motion.div>
       )}
 
       {/* TAB 5: SHARED / VERIFIED HISTORY */}
       {activeTab === "shared" && (
-        <div className="space-y-4">
+        <motion.div
+          key="shared"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -15 }}
+          transition={{ duration: 0.2 }}
+          className="space-y-4"
+        >
           {mySharedRequests.map((req) => (
             <div
               key={req.id}
@@ -724,8 +762,9 @@ export default function WalletPage() {
               </button>
             </div>
           ))}
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
 
       {/* Modals */}
       <AcademicDetailModal

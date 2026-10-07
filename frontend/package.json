@@ -4,7 +4,7 @@
   "private": true,
   "description": "Kiwi Vault — Privacy-Preserving Digital Identity and Credential Verification for RVS College of Engineering & Technology (RVSCET), Jamshedpur",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -15,6 +15,7 @@
     "@supabase/supabase-js": "^2.45.4",
     "clsx": "^2.1.1",
     "ethers": "^6.13.2",
+    "framer-motion": "^14.0.0",
     "lucide-react": "^0.446.0",
     "next": "14.2.15",
     "qrcode.react": "^4.1.0",

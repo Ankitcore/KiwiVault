@@ -24,7 +24,7 @@ export default function RootLayout({
         <VaultProvider>
           <div className="min-h-screen flex flex-col">
             <Navbar />
-            <div className="flex-1 flex max-w-[1440px] w-full mx-auto">
+            <div className="flex-1 flex flex-col lg:flex-row max-w-[1440px] w-full mx-auto">
               <Sidebar />
               <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 py-6 pb-24 lg:pb-10">
                 {children}

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   Activity,
@@ -103,7 +104,12 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       {/* HERO BANNER */}
-      <section className="rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-kiwi-50 via-white to-bark-50 dark:from-slate-900 dark:via-slate-900 dark:to-kiwi-950/30 border border-kiwi-200 dark:border-slate-800 shadow-sm">
+      <motion.section 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
+        className="rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-kiwi-50 via-white to-bark-50 dark:from-slate-900 dark:via-slate-900 dark:to-kiwi-950/30 border border-kiwi-200 dark:border-slate-800 shadow-sm"
+      >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-slate-800 border border-kiwi-200 dark:border-slate-700 text-xs font-bold text-kiwi-700 dark:text-kiwi-300">
@@ -217,7 +223,12 @@ export default function DashboardPage() {
         </div>
 
         {/* MY DIGITAL VAULT STATS GRID */}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mt-6">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mt-6"
+        >
           <Link
             href="/wallet"
             className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-kiwi-400 transition"
@@ -304,10 +315,7 @@ export default function DashboardPage() {
             <p className="text-xs font-semibold text-kiwi-100">
               🛡 {t("privacyScore")}
             </p>
-          </Link>
-        </div>
-
-        {/* QUICK ACTIONS BAR (Section 12) */}
+          </Link></motion.div>{/* QUICK ACTIONS BAR (Section 12) */}
         <div className="mt-6 pt-5 border-t border-kiwi-200/70 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
           <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             {t("quickActions")}:
@@ -354,7 +362,7 @@ export default function DashboardPage() {
             </Link>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* INCOMING VERIFICATION REQUEST PROMPT (Section 45 QR Experience) */}
       {pendingReq && (

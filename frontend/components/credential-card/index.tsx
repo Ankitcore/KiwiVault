@@ -37,8 +37,8 @@ export function DegreeCredentialCard({
       }`}
     >
       {/* Top Row: Logos & Demo / Status Badges */}
-      <div className="flex items-start justify-between gap-4 mb-5">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-5">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <div className="w-12 h-12 rounded-2xl bg-kiwi-600 text-white flex items-center justify-center shadow-md">
             <GraduationCap size={26} />
           </div>
@@ -54,7 +54,7 @@ export function DegreeCredentialCard({
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 shrink-0">
           <RvscetLogo size={46} />
           <KiwiLogo size={38} float={false} />
         </div>
@@ -110,7 +110,7 @@ export function DegreeCredentialCard({
           )}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <button
             onClick={() => onViewDetails(credential)}
             className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition"
@@ -127,7 +127,7 @@ export function DegreeCredentialCard({
       </div>
 
       {isRevoked && credential.revocationReason && (
-        <div className="mt-3 p-2.5 rounded-xl bg-rose-100/80 dark:bg-rose-950/60 text-xs text-rose-800 dark:text-rose-200 flex items-center gap-2">
+        <div className="mt-3 p-2.5 rounded-xl bg-rose-100/80 dark:bg-rose-950/60 text-xs text-rose-800 dark:text-rose-200 flex flex-col sm:flex-row sm:items-center gap-2">
           <ShieldAlert size={14} className="shrink-0" />
           <span>Revocation Reason: {credential.revocationReason}</span>
         </div>
@@ -156,8 +156,8 @@ export function AcademicCredentialCard({
       }`}
     >
       <div>
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <div className="flex items-center gap-2.5">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-3">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2.5">
             <div className="w-10 h-10 rounded-xl bg-kiwi-50 dark:bg-kiwi-950/70 text-kiwi-700 dark:text-kiwi-300 border border-kiwi-200 dark:border-kiwi-800 flex items-center justify-center shrink-0">
               {credential.type === "identity" ? (
                 <IdCard size={20} />
@@ -222,7 +222,7 @@ export function AcademicCredentialCard({
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
         <button
           onClick={() => onViewDetails(credential)}
           className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
@@ -252,8 +252,8 @@ export function IdentityCredentialCard({
   return (
     <div className="rounded-2xl p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
       <div>
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <div className="flex items-center gap-2.5">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-3">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2.5">
             <div className="w-10 h-10 rounded-xl bg-bark-100 dark:bg-bark-950/70 text-bark-700 dark:text-bark-300 border border-bark-200 dark:border-bark-800 flex items-center justify-center">
               <IdCard size={20} />
             </div>
@@ -271,7 +271,7 @@ export function IdentityCredentialCard({
           </span>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-900 text-white mb-3 flex items-center justify-between">
+        <div className="p-3.5 rounded-xl bg-slate-900 text-white mb-3 flex flex-col sm:flex-row sm:items-center justify-between">
           <div>
             <span className="text-[10px] uppercase tracking-wider text-slate-400 block">
               Masked Reference (Never Stored On-Chain)
@@ -329,17 +329,18 @@ export function AcademicDetailModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4 overflow-y-auto"
+      className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/60 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative w-full max-w-3xl rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden my-8">
+      <div className="flex min-h-full items-center justify-center p-4">
+        <div className="relative w-full max-w-3xl rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden my-8">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-kiwi-50 via-white to-bark-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 border-b border-slate-200 dark:border-slate-800">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between px-6 py-4 bg-gradient-to-r from-kiwi-50 via-white to-bark-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 border-b border-slate-200 dark:border-slate-800">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <RvscetLogo size={42} />
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                 <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-kiwi-100 text-kiwi-800 dark:bg-kiwi-950 dark:text-kiwi-300">
                   Official Academic Record • DEMO CREDENTIAL
                 </span>
@@ -428,7 +429,7 @@ export function AcademicDetailModal({
           {/* Subjects Table if available */}
           {credential.subjects && credential.subjects.length > 0 && (
             <div className="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-              <div className="px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center justify-between">
+              <div className="px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 flex flex-col sm:flex-row sm:items-center justify-between">
                 <span>Subject-Wise Marks &amp; Credits (Stored Off-Chain Only)</span>
                 <span>
                   SGPA: <strong>{credential.sgpa}</strong> | CGPA:{" "}
@@ -472,12 +473,12 @@ export function AcademicDetailModal({
 
           {/* On-Chain vs Off-Chain Privacy Architecture Box */}
           <div className="p-4 rounded-2xl bg-kiwi-50/70 dark:bg-kiwi-950/30 border border-kiwi-200 dark:border-kiwi-900 text-xs space-y-1.5">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between">
               <span className="font-bold text-kiwi-900 dark:text-kiwi-200 flex items-center gap-1.5">
                 <ShieldCheck size={15} className="text-kiwi-600" />
                 Blockchain Anchor &amp; Off-Chain Privacy Separation
               </span>
-              <span className="font-mono text-[11px] text-kiwi-700 dark:text-kiwi-400">
+              <span className="break-all font-mono text-[11px] text-kiwi-700 dark:text-kiwi-400">
                 Result: {credential.resultStatus || "VERIFIED"}
               </span>
             </div>
@@ -485,14 +486,14 @@ export function AcademicDetailModal({
               Individual subject marks, roll number, and registration number remain{" "}
               <strong>strictly off-chain</strong> inside your Kiwi Vault. Only the non-PII credential hash is anchored on-chain:
             </p>
-            <p className="font-mono text-[11px] text-slate-500 break-all">
+            <p className="break-all font-mono text-[11px] text-slate-500 break-all">
               Credential Hash: {credential.credentialHash}
             </p>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 bg-slate-50 dark:bg-slate-950/60 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+        <div className="px-6 py-4 bg-slate-50 dark:bg-slate-950/60 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between">
           <button
             onClick={onClose}
             className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 transition"
@@ -509,6 +510,7 @@ export function AcademicDetailModal({
             <KeyRound size={14} /> Generate Selective ZK Proof
           </button>
         </div>
+      </div>
       </div>
     </div>
   );

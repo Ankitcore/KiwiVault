@@ -125,14 +125,15 @@ export function CertificatePreviewModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4 overflow-y-auto"
+      className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/60 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative w-full max-w-3xl rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden my-8">
+      <div className="flex min-h-full items-center justify-center p-4">
+        <div className="relative w-full max-w-3xl rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden my-8">
         {/* Top Bar */}
-        <div className="flex items-center justify-between px-6 py-3.5 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
-          <span className="text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between px-6 py-3.5 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+          <span className="break-words whitespace-normal text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
             <ShieldCheck size={16} className="text-kiwi-600" />
             Official Institutional Certificate Preview • DEMO CREDENTIAL
           </span>
@@ -156,7 +157,7 @@ export function CertificatePreviewModal({
         <div className="p-6 sm:p-8">
           <div className="relative rounded-2xl border-4 border-double border-kiwi-600/70 dark:border-kiwi-500/60 bg-gradient-to-br from-kiwi-50/40 via-white to-amber-50/30 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 p-6 sm:p-10 text-center shadow-inner">
             {/* Header Logos */}
-            <div className="flex items-center justify-between gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <RvscetLogo size={60} />
               <div className="text-center">
                 <p className="text-[11px] font-bold uppercase tracking-widest text-kiwi-700 dark:text-kiwi-400">
@@ -217,7 +218,7 @@ export function CertificatePreviewModal({
                 <p className="font-bold text-emerald-600 dark:text-emerald-400">
                   ✓ RVSCET &amp; Kiwi Vault Signed
                 </p>
-                <p className="font-mono text-[10px] text-slate-400 truncate">
+                <p className="font-mono text-[10px] text-slate-400 break-words whitespace-normal">
                   {item.credentialHash.slice(0, 24)}...
                 </p>
               </div>
@@ -226,7 +227,7 @@ export function CertificatePreviewModal({
         </div>
 
         {/* Bottom Action Bar */}
-        <div className="px-6 py-4 bg-slate-50 dark:bg-slate-950/60 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+        <div className="px-6 py-4 bg-slate-50 dark:bg-slate-950/60 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between">
           <span className="text-xs text-slate-500">
             Don&apos;t share the full certificate unless needed — prove the claim with Zero-Knowledge!
           </span>
@@ -240,6 +241,7 @@ export function CertificatePreviewModal({
             <KeyRound size={14} /> Prove Without Sharing Certificate
           </button>
         </div>
+      </div>
       </div>
     </div>
   );

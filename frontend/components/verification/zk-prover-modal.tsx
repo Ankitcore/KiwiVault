@@ -177,12 +177,13 @@ export function ZKProverModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4 overflow-y-auto"
+      className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/60 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-label="Zero-Knowledge Privacy Proof Modal"
     >
-      <div className="relative w-full max-w-2xl rounded-3xl bg-white dark:bg-slate-900 border border-kiwi-200 dark:border-slate-800 shadow-2xl overflow-hidden my-8">
+      <div className="flex min-h-full items-center justify-center p-4">
+        <div className="relative w-full max-w-2xl rounded-3xl bg-white dark:bg-slate-900 border border-kiwi-200 dark:border-slate-800 shadow-2xl overflow-hidden my-8">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-kiwi-50 via-white to-bark-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-3">
@@ -466,6 +467,7 @@ export function ZKProverModal({
             Done
           </button>
         </div>
+      </div>
       </div>
     </div>
   );
