@@ -641,7 +641,7 @@ export default function VerifierPage() {
                         }, 500);
                       }
                     }}
-                    components={{ audio: false, finder: false }}
+                    components={{ finder: false }}
                   />
                   <div className="absolute inset-0 border-2 border-kiwi-500/50 rounded-xl pointer-events-none z-10" />
                 </div>
