@@ -79,16 +79,16 @@ Kiwi Vault consists of three main portals, accessible directly from the homepage
 
 ## 📸 Screenshots & UI Walkthrough
 
-*(Note: Replace the generic placeholder image paths in this file with your actual screenshots in a `/docs/assets/` folder to display them here)*
+
 
 | Student Wallet Dashboard | ZK Proof Generation |
 | :---: | :---: |
-| <img src="https://via.placeholder.com/600x400.png?text=Student+Wallet+Dashboard" width="400" alt="Student Wallet" /> | <img src="https://via.placeholder.com/600x400.png?text=ZK+Proof+Generation" width="400" alt="ZK Proof Gen" /> |
+| <img src="./docs/assets/wallet.png" width="400" alt="Student Wallet" /> | <img src="./docs/assets/proof-gen.png" width="400" alt="ZK Proof Gen" /> |
 | *View and manage encrypted credentials locally.* | *Mathematical proving happening in the browser.* |
 
 | Verifier QR Scanner | Issuer Portal |
 | :---: | :---: |
-| <img src="https://via.placeholder.com/600x400.png?text=Verifier+QR+Scanner" width="400" alt="Verifier UI" /> | <img src="https://via.placeholder.com/600x400.png?text=Issuer+Portal" width="400" alt="Issuer UI" /> |
+| <img src="./docs/assets/verifier.png" width="400" alt="Verifier UI" /> | <img src="./docs/assets/issuer.png" width="400" alt="Issuer UI" /> |
 | *Live QR scanning to verify claims.* | *Issue and revoke credentials on-chain.* |
 
 ---
