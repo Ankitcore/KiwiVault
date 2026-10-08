@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/shield-check.svg" width="120" alt="Kiwi Vault Logo" />
+  <img src="./frontend/public/kiwi-vault-logo.png" width="180" alt="Kiwi Vault Logo" />
   <h1>🥝 KIWI VAULT</h1>
   <p><strong>Your Credentials. Your Achievements. Your Privacy.</strong></p>
   
