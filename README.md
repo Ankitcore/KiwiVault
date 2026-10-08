@@ -167,10 +167,14 @@ KiwiVault/
 
 ---
 
-## 🤝 Team Nexus
+## 👥 Team Members
+
 Built with ❤️ for **HackQubit 2.0**.
-- **Ankit Kumar** - Full Stack & ZK Engineer
-- *(Add other team members here)*
+
+- **Ankit Kumar** — Full Stack Engineer & Idea Lead
+- **Shivam Soni** — Bug Hunter & Site Optimization
+- **Siddharth Gupta** — PPT & Pitch Lead
+- **Abhieshik** — Frontend Developer
 
 ---
 <div align="center">
